@@ -6,14 +6,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.villanueva</groupId>
-    <artifactId>facebook-like-api</artifactId>
+    <artifactId>facebookapi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>facebook-like-api</name>
-    <description>Simple Facebook-like posts API with Spring Boot and Postgres</description>
+    <name>facebookapi</name>
+    <description>Facebook-like posts API</description>
 
     <properties>
         <java.version>17</java.version>
-        <spring.boot.version>3.1.5</spring.boot.version>
+        <spring.boot.version>3.5.7</spring.boot.version>
     </properties>
 
     <dependencies>
@@ -30,54 +30,51 @@
             <version>${spring.boot.version}</version>
         </dependency>
 
-        <!-- NOTE: validation starter intentionally removed (no Jakarta Validation) -->
-
         <!-- PostgreSQL driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.6.0</version>
+            <version>42.7.8</version>
         </dependency>
 
-        <!-- For @CreationTimestamp / @UpdateTimestamp -->
+        <!-- Hibernate core (for CreationTimestamp / UpdateTimestamp) -->
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.3.0.Final</version>
+            <version>6.6.33.Final</version>
         </dependency>
 
-        <!-- Optional: dev tools -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-            <version>${spring.boot.version}</version>
-        </dependency>
-
+        <!-- Jackson support for Java 8 time -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
+        <!-- DevTools (optional) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
             <version>${spring.boot.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Spring Boot Maven plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
             </plugin>
-
-            <!-- Compiler plugin -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>

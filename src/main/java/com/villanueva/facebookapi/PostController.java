@@ -4,22 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 import java.util.Map;
 
-/**
- * All controller/repository/entity/application classes live in the same package
- * as requested.
- *
- * Endpoints:
- * GET    /api/posts          - list all posts
- * GET    /api/posts/{id}     - get a single post
- * POST   /api/posts          - create a post
- * PUT    /api/posts/{id}     - update a post
- * DELETE /api/posts/{id}     - delete a post
- */
 @RestController
 @RequestMapping("/api/posts")
 @CrossOrigin(origins = "http://localhost:5173") // allow Vite dev server during development
@@ -31,7 +19,6 @@ public class PostController {
         this.postRepository = postRepository;
     }
 
-    // DTOs are simple inner static classes to avoid adding new packages
     public static class CreatePostRequest {
         public String author;
         public String content;
@@ -76,8 +63,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id,
-                                    @RequestBody UpdatePostRequest req) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody UpdatePostRequest req) {
         if (req == null) {
             return ResponseEntity.badRequest().body(Map.of("error", "request body is required"));
         }
@@ -88,7 +74,7 @@ public class PostController {
                         if (!StringUtils.hasText(req.content)) {
                             return ResponseEntity.badRequest().body(Map.of("error", "content cannot be blank"));
                         }
-                        existing.setContent(req.content);
+                        existing.setContent(req.content.trim());
                     }
                     if (req.imageUrl != null) existing.setImageUrl(req.imageUrl);
                     Post updated = postRepository.save(existing);
